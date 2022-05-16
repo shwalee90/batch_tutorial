@@ -1,4 +1,4 @@
-package com.example.SpringBatchTutorial.job.HelloWorld;
+package com.example.SpringBatchTutorial.job.JobListener;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
@@ -18,36 +18,38 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @RequiredArgsConstructor
-public class HelloWorldjobConfig {
+public class JobListenerConfig {
 
     @Autowired
     private JobBuilderFactory jobBuilderFactory;
     @Autowired
     private StepBuilderFactory stepBuilderFactory;
     @Bean
-    public Job helloWorldJob(){
-        return jobBuilderFactory.get("helloWorldJob")
+    public Job jobListenerJob(){
+        return jobBuilderFactory.get("jobListenerJob")
                 .incrementer(new RunIdIncrementer())
-                .start(helloWorldStep())
+                .listener(new JobLoggerListener())
+                .start(jobListenerStep())
                 .build();
     }
 
     @JobScope
     @Bean
-    public Step helloWorldStep() {
-        return stepBuilderFactory.get("helloWorldStep")
-                .tasklet(helloWorldTasklet())
+    public Step jobListenerStep() {
+        return stepBuilderFactory.get("jobListenerStep")
+                .tasklet(jobListenerTasklet())
                 .build();
     }
 
     @StepScope
     @Bean
-    public Tasklet helloWorldTasklet() {
+    public Tasklet jobListenerTasklet() {
         return new Tasklet() {
             @Override
             public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                System.out.println("Hello world Spring Batch");
-                return RepeatStatus.FINISHED;
+                System.out.println("jobListener Spring Batch");
+                //return RepeatStatus.FINISHED;
+                throw new Exception("Failed!!");
             }
 
         };
