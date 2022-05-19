@@ -1,6 +1,8 @@
-package com.example.SpringBatchTutorial.job.FileDataReadWriteConfig.dto;
+package com.example.SpringBatchTutorial.job.FileDataReadWrite.dto;
 
 import lombok.Data;
+
+import java.io.Serializable;
 
 @Data
 public class Player implements Serializable {
