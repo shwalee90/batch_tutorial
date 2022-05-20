@@ -1,6 +1,8 @@
 package com.example.SpringBatchTutorial.core.domain.orders;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Entity;
@@ -9,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @ToString
 @Entity
@@ -19,4 +23,8 @@ public class Orders {
     private String orderItem;
     private Integer price;
     private Date orderDate;
+
+
+
+
 }
